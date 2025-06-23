@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AniStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tema tercihi
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <!-- Navbar -->
+    <header class="flex items-center justify-between p-4 bg-gray-800 shadow">
+        <h1 class="text-2xl font-bold">AniStore</h1>
+        <div class="flex items-center gap-4">
+            <button id="toggleTheme" class="text-xl">🌙</button>
+            <button id="cartBtn" class="text-xl relative">
+                🛒<span id="cartCount"
+                    class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Ürünler -->
+    <main class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Örnek Ürün Kartı -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+            <img src="/images/wild_robot.jpg" alt="The Wild Robot" class="w-full h-48 object-cover" />
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold">The Wild Robot</h2>
+                    <span class="text-yellow-400">⭐ 10</span>
+                </div>
+                <p class="text-green-400">Stock: <span>5</span></p>
+                <p class="text-white font-semibold mb-2">45.0 ₺</p>
+                <button onclick="addToCart('The Wild Robot', 45)"
+                    class="bg-blue-600 hover:bg-blue-700 w-full py-1 rounded">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <!-- Diğer ürünler buraya aynı yapıda eklenebilir -->
+    </main>
+
+    <!-- Sepet (Konsola yazan demo) -->
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cartCount').innerText = cart.length;
+            console.log("Sepet:", cart);
+        }
+
+        document.getElementById('toggleTheme').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Sayfa yüklenince sepet sayısı güncelle
+        document.getElementById('cartCount').innerText = cart.length;
+    </script>
+</body>
+
+</html>
