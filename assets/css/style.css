@@ -97,7 +97,7 @@ footer {
     }
 
     .time {
-        font-size: 4rem;
+        font-size: 3.5rem;
     }
 
     .date {
@@ -112,7 +112,7 @@ footer {
 
 @media (max-width: 480px) {
     .time {
-        font-size: 4rem;
+        font-size: 3.5rem;
         letter-spacing: 1px;
     }
 
