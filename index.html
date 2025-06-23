@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit Saat | hamzan.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            size: 100%;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .clock-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .clock-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .time {
+            font-size: 15rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .date {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .timezone {
+            display: inline-block;
+            background: #f1f9ff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: #2980b9;
+            font-size: 1rem;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><span>🇹🇷</span> Türkiye</h1>
+        </header>
+        <main>
+            <div class="clock-container">
+                <div class="time" id="time">00:00:00</div>
+                <div class="date" id="date">1 Ocak 2024, Pazartesi</div>
+                <div class="timezone">
+                    <i class="fas fa-globe"></i> Zaman Dilimi: <span id="timezone">Europe/Istanbul</span>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>hamzan.com | Basit Saat Uygulaması</p>
+        </footer>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            // Saati formatla
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            // Tarihi Türkçe formatla
+            const dateString = now.toLocaleDateString('tr-TR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // DOM güncelleme
+            document.getElementById('time').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+        }
+
+        // Zaman dilimini al
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('timezone').textContent = timezone;
+
+        // Saati hemen güncelle
+        updateClock();
+
+        // Her saniyede bir güncelle
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+
+</html>
